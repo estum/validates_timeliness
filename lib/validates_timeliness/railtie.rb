@@ -3,7 +3,7 @@ module ValidatesTimeliness
     initializer "validates_timeliness.initialize_active_record", :after => 'active_record.initialize_timezone' do
       ActiveSupport.on_load(:active_record) do
         ValidatesTimeliness.default_timezone = ActiveRecord::Base.default_timezone
-        ValidatesTimeliness.extend_orms << :active_record
+        ValidatesTimeliness.extend_orms << :active_record unless ValidatesTimeliness.extend_orms.frozen?
         ValidatesTimeliness.load_orms
       end
     end
